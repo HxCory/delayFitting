@@ -50,6 +50,7 @@ plt.plot(omegaD, delays, omega_dip, fit.fit_alphas_dynamic\
          (omega_dip,\
 			-4.08147964, -16.96877514,   0.3398741 ,\
 	          -0.21666972,   0.03361551))
+
 pylab.ylim([-5, 5])
 pylab.legend(['TDSE data', 'fit'])
 pylab.xlabel('omega (a.u.)')
