@@ -22,7 +22,6 @@ wf2 = np.zeros(wfsize)
 wf3 = np.zeros(wfsize)
 
 i = 0
-# state = 0
 
 with open('wf1D0.txt') as infile:
 	for line in infile:
@@ -50,8 +49,6 @@ with open('wf1D3.txt') as infile:
 	for line in infile:
 		wf0[i] = (line.split())[1]
 		i = i + 1
-
-
 
 plt.plot(z, wf0, z, wf3)
 plb.legend(['0', '1', '2', '3'])
