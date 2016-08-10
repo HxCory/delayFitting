@@ -64,11 +64,11 @@ int main( int argc, char *argv[] )
 
   wavefunction wf[Nstate()];
   for(int i=0; i<Nstate(); i++)
-    {
-      Initialize(wf[i], n_point(), spatial_step(), x_symmetry());
-      Guess_Function_Gauss(wf[i], sigma(), gauss_center(), initial_momentum());
-      Normalize(wf[i]);
-    }
+  {
+    Initialize(wf[i], n_point(), spatial_step(), x_symmetry());
+    Guess_Function_Gauss(wf[i], sigma(), gauss_center(), initial_momentum());
+    Normalize(wf[i]);
+  }
 
   double R=R_in();
 
