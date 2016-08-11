@@ -5,7 +5,6 @@ import scipy.optimize as sopt
 import numpy as np
 import matplotlib.pylab as plb
 import matplotlib.pyplot as plt
-import pylab
 import definitionsFits as fit
  
 Path = '/Users/cgoldsmith/repos/delayFitting/Data'

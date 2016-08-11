@@ -17,6 +17,8 @@ for m in dip.z:
 print dip01
 print dip03
 
+dipOnek = dip.zRealPlaneWave * dip.wf1
+
 plt.plot(dip.z, dip.zRealPlaneWave, dip.z, dip.zImagPlaneWave)
 plb.xlim([-40, 40])
 plb.ylim([-40, 40])
