@@ -50,11 +50,11 @@ plt.plot(omegaD, delays, omega_dip, fit.fit_alphas_dynamic\
 			-4.08147964, -16.96877514,   0.3398741 ,\
 	          -0.21666972,   0.03361551))
 
-pylab.ylim([-5, 5])
-pylab.legend(['TDSE data', 'fit'])
-pylab.xlabel('omega (a.u.)')
-pylab.ylabel('time delay (a.u.)')
-pylab.title('first order/linear approx. for dipoles')
-pylab.show()
+plb.ylim([-5, 5])
+plb.legend(['TDSE data', 'fit'])
+plb.xlabel('omega (a.u.)')
+plb.ylabel('time delay (a.u.)')
+plb.title('first order/linear approx. for dipoles')
+plb.show()
 
 

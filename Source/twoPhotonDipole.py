@@ -10,7 +10,6 @@ def constructBound(wf):
 		elmt = -m * defs.wf0[i] * defs.conjugate(wf[i])
 		dip = dip + elmt
 		i = i + 1
-
 	return dip
 
 def constructPlaneWave(omegaV):

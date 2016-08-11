@@ -8,9 +8,8 @@ import matplotlib.pylab as plb
 import matplotlib.pyplot as plt
 import defsDipole as defs
 import twoPhotonDipole as func
-# import dipoleCalcAnalysis as dipc
 
-omega = np.arange(0.5, 1.2, 0.005)
+omega = np.arange(0.5, 1.2, 0.0005)
 m = range(1, 3)
 mu1 = np.zeros(np.size(omega), 'complex')
 mu3 = np.zeros(np.size(omega), 'complex')
@@ -23,8 +22,6 @@ E_0 = -1.1591
 E_m = [-0.8502, -0.3278, -0.1665]
 T = 3/0.02419
 alpha = 1.0
-
-# dipOne = mu1 * defs.plane
 
 delta_m = np.zeros(np.size(E_m))
 for j in m:
@@ -48,15 +45,14 @@ realCf3 = np.exp(-alpha*T*T*(delta_m[1]-omega)\
 realCf5 = np.exp(-alpha*T*T*(delta_m[2]-omega)\
                     *(delta_m[2]-omega))
 
-cf1 = mu1 *  (realCf1 + imagCf1)
-cf3 = mu3 *  (realCf3 + imagCf3)
+cf1 = mu1 * (realCf1 + imagCf1)
+cf3 = mu3 * (realCf3 + imagCf3)
 
-plt.plot(omega, np.imag(cf1 + cf3), omega, np.real(cf1 + cf3))
-# plt.plot(omega, mu1 * np.imag(imagCf1), omega, mu3 * np.imag(imagCf3)) 
-# plb.legend(['1st', '3rd'])
+# plt.plot(omega, np.imag(cf1 + cf3), omega, np.real(cf1 + cf3))
+# plb.legend(['imag', 'real'])
 
-# quotient3rd = np.imag(imagCf1)/realCf1
-# quotientSum = np.imag(imagCf1p3)/realCf1p3
+quotientSum = np.imag(cf1 + cf3)/np.real(cf1 + cf3)
+plt.plot(omega, quotientSum)
 
 # phaseSum = np.arctan(quotientSum)
 # dOmega = np.gradient(omega)
