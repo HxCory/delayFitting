@@ -8,6 +8,8 @@ def getk(omega, IP):
 	k =  np.sqrt(2 * ((2 * omega) - IP))
 	return k
 
+def conjugate(z):
+	return np.real(z) - (cmath.sqrt(-1) * np.imag(z))
 
 Path = '/Users/cgoldsmith/repos/delayFitting/Data/eigenstates/wavefxCalc__2'
 os.chdir(Path)
