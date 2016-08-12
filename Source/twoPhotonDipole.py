@@ -37,7 +37,15 @@ def constructContinuum(omegar, wf):
 def constructDipole(photonE, wfInt):
 	return constructContinuum(photonE, wfInt) * constructBound(wfInt)
 
-def fitDipoleFactors(omegaF, m1, m3, c_1, c_3):
+def fitDip1(omegaVars, m1, b1):
+	dipoleFit = m1*omegaVars + b1
+	return dipoleFit
+
+def fitDip3(omegaVars, m3, b3):
+	dipoleFit = m3*omegaVars + b3
+	return dipoleFit
+
+def fitDipoleFactors(omegaF, m1, m3, c_1, c_3, free):
 	E_0 = -1.1591
 	E_m = [-0.8502, -0.3278, -0.1665]
 	T = 3/0.02419
@@ -52,10 +60,11 @@ def fitDipoleFactors(omegaF, m1, m3, c_1, c_3):
 	imagFactor = np.zeros(optSize, 'complex')
 	i = 0
 	T = 3 / 0.02419
-	omegaV = omegaF
-	while(i < np.size(omegaF)):
-		alpha1f[i] = m1*constructDipole(omegaV[i], defs.wf1) + c_1
-		alpha3f[i] = m3*constructDipole(omegaV[i], defs.wf3) + c_3
+
+	for x in omegaF:
+		omegaV[i] = x
+		alpha1f[i] = m1*x + c_1#constructDipole(x, defs.wf1) + c_1
+		alpha3f[i] = m3*x + c_3#constructDipole(x, defs.wf3) + c_3
 		i = i + 1
 	# print "Dipoles Calc'd"
 
@@ -66,15 +75,15 @@ def fitDipoleFactors(omegaF, m1, m3, c_1, c_3):
 					+ (alpha3f * np.exp(-np.power(dawsArg3rd, 2.0)))
 
 	imagFactor = (alpha1f * ((-2 * cmath.sqrt(-1))\
-					/ (np.sqrt(np.pi))) * spcl.dawsn(dawsArg1st))\
+					/ (np.sqrt(np.pi))) * spcl.dawsn(np.sqrt(free)*dawsArg1st))\
 						+ (alpha3f * ((-2 * cmath.sqrt(-1))\
-							/ (np.sqrt(np.pi))) * spcl.dawsn(dawsArg3rd))
+							/ (np.sqrt(np.pi))) * spcl.dawsn(np.sqrt(free)*dawsArg3rd))
 
 	domegaV = np.gradient(omegaV)
 	phase_fit = np.arctan(np.imag(imagFactor)/np.real(realFactor))
 
 	dphi_fit = np.gradient(phase_fit, domegaV)
-	print "dPhi calc'd"
+	# print "dPhi calc'd"
 
 	#return omegaV
 	return dphi_fit
