@@ -17,10 +17,9 @@ def constructBound(wf):
 def constructPlaneWave(omegaV):
     i = 0
     planeWave = np.zeros(defs.wfsize, 'complex')
-    while(i < defs.wfsize):
-        for m in defs.z:
-            planeWave[i] = np.exp(-1 * cmath.sqrt(-1) * m * defs.getk(omegaV, defs.E_0))
-            i = i + 1
+    for m in defs.z:
+        planeWave[i] = np.exp(-1 * cmath.sqrt(-1) * m * defs.getk(omegaV, defs.E_0))
+        i = i + 1
     return planeWave
 
 def constructContinuum(omegar, wf):
@@ -38,7 +37,7 @@ def constructContinuum(omegar, wf):
 def constructDipole(photonE, wfInt):
 	return constructContinuum(photonE, wfInt) * constructBound(wfInt)
 
-def fitDipoleFactors(omegaF, c_1, c_3):
+def fitDipoleFactors(omegaF, m1, m3, c_1, c_3):
 	E_0 = -1.1591
 	E_m = [-0.8502, -0.3278, -0.1665]
 	T = 3/0.02419
@@ -53,12 +52,12 @@ def fitDipoleFactors(omegaF, c_1, c_3):
 	imagFactor = np.zeros(optSize, 'complex')
 	i = 0
 	T = 3 / 0.02419
-
-	for x in omegaF:
-		omegaV[i] = x
-		alpha1f[i] = constructDipole(x, defs.wf1) + c_1
-		alpha3f[i] = constructDipole(x, defs.wf3) + c_3
+	omegaV = omegaF
+	while(i < np.size(omegaF)):
+		alpha1f[i] = m1*constructDipole(omegaV[i], defs.wf1) + c_1
+		alpha3f[i] = m3*constructDipole(omegaV[i], defs.wf3) + c_3
 		i = i + 1
+	# print "Dipoles Calc'd"
 
 	dawsArg1st = T*(delta_m[0] - omegaV)
 	dawsArg3rd = T*(delta_m[1] - omegaV)
@@ -75,6 +74,9 @@ def fitDipoleFactors(omegaF, c_1, c_3):
 	phase_fit = np.arctan(np.imag(imagFactor)/np.real(realFactor))
 
 	dphi_fit = np.gradient(phase_fit, domegaV)
+	print "dPhi calc'd"
 
 	#return omegaV
 	return dphi_fit
+
+

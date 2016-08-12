@@ -27,7 +27,6 @@ with open('wf1D0.txt') as infile:
 	for line in infile:
 		row = (line.split())[0]
 		wfsize = wfsize + 1
-print wfsize
 
 z = np.zeros(wfsize)
 wf0 = np.zeros(wfsize)

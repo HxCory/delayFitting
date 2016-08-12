@@ -12,20 +12,13 @@ data = loadtxt('TDSE_3fs.txt')
 x = data[:, 0]
 y = data[:, 4]
 
-def gaussian(x, amp, cen, wid):
-    "1-d gaussian: gaussian(x, amp, cen, wid)"
-    return (amp/(sqrt(2*pi)*wid)) * exp(-(x-cen)**2 /(2*wid**2))
-
-
 gmod = Model(func.fitDipoleFactors)
-result = gmod.fit(y, omegaF = x,\
- c_1 = -9.88389208,  c_3 = 4.94309140)
+result = gmod.fit(y, omegaF = x, m1 = 1.0, m3 = 1.0,\
+	c_1 = -4.0088389208,  c_3 = 1.0094309140)
 
 print(result.fit_report())
 
 plt.plot(x, y,'bo')
-# plt.plot(x, result.init_fit, 'k--')
+plt.plot(x, result.init_fit, 'k--')
 plt.plot(x, result.best_fit, 'r-')
-# plt.plot(defs.omega_dip, func.fitDipoleFactors\
-# 	(defs.omega_dip, -9.88230074, 4.94203098, 0.00187428 ))
 plt.show()
