@@ -63,8 +63,10 @@ def fitDipoleFactors(omegaF, m1, m3, c_1, c_3, free):
 
 	for x in omegaF:
 		omegaV[i] = x
-		alpha1f[i] = m1*x + c_1#constructDipole(x, defs.wf1) + c_1
-		alpha3f[i] = m3*x + c_3#constructDipole(x, defs.wf3) + c_3
+		# alpha1f[i] = m1*x + c_1#constructDipole(x, defs.wf1) + c_1
+		# alpha3f[i] = m3*x + c_3#constructDipole(x, defs.wf3) + c_3
+		alpha1f[i] = constructDipole(x, defs.wf1) + c_1
+		alpha3f[i] = constructDipole(x, defs.wf3) + c_3
 		i = i + 1
 	# print "Dipoles Calc'd"
 

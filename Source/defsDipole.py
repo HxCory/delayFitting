@@ -5,7 +5,7 @@ import matplotlib.pylab as plb
 import matplotlib.pyplot as plt
 
 def getk(omega, IP):
-	k =  np.sqrt(2 * ((2 * omega) - IP))
+	k =  np.sqrt(2 * ((2 * omega) + IP))
 	return k
 
 def conjugate(z):
