@@ -1,18 +1,17 @@
 import os
 import cmath
 import numpy as np
+import dipoleCalcAnalysis as sis
 import defsDipole as defs
 import scipy.special as spcl
 
+dz = 0.0732
 
 def constructBound(wf):
-	i = 0
-	dip = 0
-	for m in defs.z:
-		elmt = -m * defs.wf0[i] * defs.conjugate(wf[i])
-		dip = dip + elmt
-		i = i + 1
-	return dip
+	if(wf.all == defs.wf1.all):
+		return sis.dipsBound01
+	else:
+		return sis.dipsBound03
 
 def constructPlaneWave(omegaV):
     i = 0
@@ -20,7 +19,7 @@ def constructPlaneWave(omegaV):
     for m in defs.z:
         planeWave[i] = np.exp(-1 * cmath.sqrt(-1) * m * defs.getk(omegaV, defs.E_0))
         i = i + 1
-    return planeWave
+    return planeWave * dz
 
 def constructContinuum(omegar, wf):
     realDipper = np.zeros(defs.wfsize)

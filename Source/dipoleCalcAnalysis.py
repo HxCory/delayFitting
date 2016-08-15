@@ -17,7 +17,8 @@ for m in dip.z:
 	i = i + 1
 print dip01 * dz
 print dip03 * dz
-
+dipsBound01 = dip01 * dz
+dipsBound03 = dip03 * dz
 dipOnek = dip.zRealPlaneWave * dip.wf1
 
 # plt.plot(dip.z, dip.zRealPlaneWave, dip.z, dip.zImagPlaneWave)
