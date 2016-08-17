@@ -17,24 +17,24 @@ def constructPlaneWave(omegaV):
     i = 0
     planeWave = np.zeros(defs.wfsize, 'complex')
     for m in defs.z:
-        planeWave[i] = np.exp(-1 * cmath.sqrt(-1) * m * defs.getk(omegaV, defs.E_0))
+        planeWave[i] = np.exp(-1 * cmath.sqrt(-1) * m * defs.getk(omegaV, defs.E_0)) 
         i = i + 1
-    return planeWave * dz
+    return planeWave 
 
 def constructContinuum(omegar, wf):
-    realDipper = np.zeros(defs.wfsize)
-    imagDipper = np.zeros(defs.wfsize)
+    Dipper = np.zeros(defs.wfsize, 'complex')
     dummyVec = constructPlaneWave(omegar)
-
-    realDipper = -np.real(dummyVec * wf) * defs.z 
-    imagDipper = -np.imag(dummyVec * wf) * defs.z
-
-    summer = sum(realDipper) + (cmath.sqrt(-1) * sum(imagDipper))    
-    return summer
-
+    i = 0
+    for m in defs.z:
+    	Dipper[i] = -m * dummyVec[i] * wf[i]
+    	i = i + 1
+    return sum(Dipper)*dz
 
 def constructDipole(photonE, wfInt):
 	return constructContinuum(photonE, wfInt) * constructBound(wfInt)
+
+print constructDipole(0.65, defs.wf1)
+print constructDipole(0.65, defs.wf3)
 
 def fitDip1(omegaVars, m1, b1):
 	dipoleFit = m1*omegaVars + b1
