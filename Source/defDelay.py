@@ -23,13 +23,12 @@ def delay(omegaV, free):
 	imagFactor = np.zeros(optSize, 'complex')
 	T = 3 / 0.02419
 
-	for i in range(0, np.size(defs.omega_dip)):
+	for i in range(0, np.size(defs.omega_dip)-1):
 	    alpha1f[i] = dipole.constructDipole(omegaV[i], defsDipole.wf1)
 	    alpha3f[i] = dipole.constructDipole(omegaV[i], defsDipole.wf3)
 
 	dawsArg1st = T*(delta_m[0] - omegaV)
 	dawsArg3rd = T*(delta_m[1] - omegaV)
-	free = 0.002
 	realFactor = np.real((alpha1f * np.exp(-free*np.power(dawsArg1st,2.0)))\
             + (alpha3f * np.exp(-np.sqrt(free)*np.power(dawsArg3rd, 2.0))))
 

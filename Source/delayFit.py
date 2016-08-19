@@ -12,7 +12,7 @@ data = np.loadtxt('TDSE_3fs.txt')
 x = data[:, 0]
 y = data[:, 4]
 
-gmod - Model(defD.delay)
+gmod = Model(defD.delay)
 result = gmod.fit(y, omegaV = x, free = 0.002)
 
 print(result.fit_report())
