@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		DB64EDD81D678E03005DDF41 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DB64EDD71D678E03005DDF41 /* main.cpp */; };
+		DB64EE0A1D679289005DDF41 /* pert.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DB64EE091D679289005DDF41 /* pert.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -26,6 +27,7 @@
 		DB64EDD41D678E03005DDF41 /* PerturbationTheory */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PerturbationTheory; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB64EDD71D678E03005DDF41 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		DB64EDDE1D678E65005DDF41 /* pert.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = pert.hpp; sourceTree = "<group>"; };
+		DB64EE091D679289005DDF41 /* pert.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = pert.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +62,7 @@
 			children = (
 				DB64EDD71D678E03005DDF41 /* main.cpp */,
 				DB64EDDE1D678E65005DDF41 /* pert.hpp */,
+				DB64EE091D679289005DDF41 /* pert.cpp */,
 			);
 			path = PerturbationTheory;
 			sourceTree = "<group>";
@@ -120,6 +123,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DB64EE0A1D679289005DDF41 /* pert.cpp in Sources */,
 				DB64EDD81D678E03005DDF41 /* main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

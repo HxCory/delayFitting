@@ -108,9 +108,6 @@ int main( int argc, char *argv[] )
               E_new=energy.measure();
               R_old=R_new;
               R_new=distance.measure();
-
-
-
               output_c<<E_new<<"\t"<<R_new<<endl;
           }
       }
