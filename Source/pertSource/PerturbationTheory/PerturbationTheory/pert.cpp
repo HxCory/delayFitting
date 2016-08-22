@@ -9,46 +9,42 @@
 #include "pert.hpp"
 #include <vector>
 
+template <typename T>
+T StringToNumber ( const std::string &Text )
+{
+    std::stringstream ss(Text);
+    T result;
+    return ss >> result ? result : 0;
+}
+
 pert::pert()
 {
-    // pert::reAlphaOne.push_back(0.0);
-    // pert::imAlphaOne.push_back(0.0);
+//	pert::a1.push_back(0.0);
+//    std::cout<<a1[0]<<std::endl;
 }
 
 pert::~pert()
 {
 }
 
-void pert::readDipoleInput(std::ifstream &input)
+void pert::readInput(std::ifstream &input)
 {
 	pert Pert;
     std::string line;
 
 	while(getline(input, line))
 	{
-		std::stringstream linestream(line);
+		double realDip;
 		std::string keyword;
-
+		std::stringstream linestream(line);
+		
 		if(linestream >> keyword)
 		{
-			double realDip;
-			double imagDip;
-		
-			if(linestream>>realDip>>imagDip)
-			{
-				Pert.populateAlphaOne(realDip, imagDip);
-			}
-		}
+            realDip = StringToNumber<double>(keyword);
+            std::cout<<realDip<<std::endl;
+//            a1.push_back(realDip);
+        }
 	}
-}
-
-void populateAlphaOne(double real, double imag)
-{
-    pert::reAlphaOne.push_back(real);
-    pert::imAlphaOne.push_back(imag);
-    std::sort(pert::reAlphaOne.begin(), pert::reAlphaOne.end());
-    std::sort(pert::imAlphaOne.begin(), pert::imAlphaOne.end());
-
 }
 
 void pert::openFile(std::ifstream &filename, std::string name)
@@ -60,3 +56,4 @@ void pert::closeFile(std::ifstream &filename)
 {
 	filename.close();
 }
+

@@ -22,31 +22,13 @@ public:
 	virtual ~pert();
     static void openFile(std::ifstream &filename, std::string name);
 	static void closeFile(std::ifstream &filename);
-    static void readDipoleInput(std::ifstream &input);
-    static void readOmegaInput(std::ifstream &input);
-    static void populateAlphaOne(double real, double imaginary);
-    std::vector< std::complex<double> > alphaOne;
-    std::vector< std::complex<double> > alphaThree;
+    static void readInput(std::ifstream &input);
+    std::vector<double> a1;
 
 
-
-
-	std::vector<double> omega;
-	std::vector<int> m;
-	std::vector<double> E_m;
-	double E_0;
-	double alpha;	
-	double T;
-	std::string OutputFolder;
-	std::string dataFolder;
-    static std::ifstream omegaDip;
-    std::ifstream dipOne;
-    std::ifstream dipThree;
-    static std::vector<double> reAlphaOne;
-    static std::vector<double> imAlphaOne;
 private:
-
+	
 };
 
 
-#endif /* pert_h */
+#endif   /* pert_h */
