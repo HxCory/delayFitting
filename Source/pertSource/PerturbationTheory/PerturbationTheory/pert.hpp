@@ -23,12 +23,13 @@ public:
 	virtual ~pert();
     static void openFile(std::ifstream &filename, std::string name);
 	static void closeFile(std::ifstream &filename);
-    static void readInput(std::ifstream &input);
     std::vector<double> a1;
     std::complex<double> secondIntegral(int m, double tPrime, double t, double omega,
     				std::vector<double> field, std::vector<double> energy, double dt);
     std::complex<double> firstIntegral(int m, double t, double omega, std::vector<double> field,
     									std::vector<double> energy, double dt);
+    
+    void setEnergies(std::vector<double> &energies, double min, double max, double interval);
     
     //wavefunction operators
     static void Initialize(wavefunction &wf, int nPoint, double spatialStep, int symm = 0);
@@ -36,10 +37,17 @@ public:
     //Dipole Operators
     std::complex<double> dipole(wavefunction &wf, wavefunction &wf2);
     std::complex<double> dipolePlaneWave(wavefunction &wf, double &k);
+    vector<double> stateEnergy;
     
-
+    //Field Operators
+    void createCosineSquare(vector<double> &dummy, double dt, double amp, double length, double freq, double phi);
+    void takeEnergy(vector<double> &dummy);
 private:
 	double groundEnergy;
+    double firstEnergy;
+    double secondEnergy;
+    double thirdEnergy;
+    double fourthEnergy;
 };
 
 

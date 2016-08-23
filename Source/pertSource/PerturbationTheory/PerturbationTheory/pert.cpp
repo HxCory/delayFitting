@@ -19,34 +19,20 @@ T StringToNumber ( const std::string &Text )
 }
 
 pert::pert()
-	:  groundEnergy(-1.1591)
+:  groundEnergy(-1.1591)
+,  firstEnergy(-0.8502)
+,  secondEnergy(-0.4905)
+,  thirdEnergy(-0.3278)
+,  stateEnergy(4)
 {
-//	pert::a1.push_back(0.0);
-//    std::cout<<a1[0]<<std::endl;
+    stateEnergy[0] = groundEnergy;
+    stateEnergy[1] = firstEnergy;
+    stateEnergy[2] = secondEnergy;
+    stateEnergy[3] = thirdEnergy;
 }
 
 pert::~pert()
 {
-}
-
-void pert::readInput(std::ifstream &input)
-{
-	pert Pert;
-    std::string line;
-
-	while(getline(input, line))
-	{
-		double realDip;
-		std::string keyword;
-		std::stringstream linestream(line);
-		
-		if(linestream >> keyword)
-		{
-            realDip = StringToNumber<double>(keyword);
-            std::cout<<realDip<<std::endl;
-//            a1.push_back(realDip);
-        }
-	}
 }
 
 void pert::openFile(std::ifstream &filename, std::string name)
@@ -66,7 +52,7 @@ std::complex<double> pert::secondIntegral(int m, double tPrime, double t,
 	double omega, std::vector<double> field, std::vector<double> energy, double dt)
 {
 	std::complex<double> s;
-	int numPoints=field.size();
+	int numPoints = field.size();
 	std::vector<double> time(numPoints, 0.0);
 	int Nhalf=int(0.5 * t / dt);
 	for(int i=0; i<numPoints; i++)
@@ -128,6 +114,15 @@ void pert::Initialize(wavefunction &wf, int nPoint, double spatialStep, int symm
     wf.one_by_dx1sqr = 1. / (wf.dx1 * wf.dx1);
 }
 
+void pert::setEnergies(std::vector<double> &energies, double min, double max, double interval)
+{
+    double point = min;
+    while (point <= max) {
+        energies.push_back(point);
+        point += interval;
+    }
+}
+
 /*-------------------------------------------------------------------------------------*/
 
 
@@ -151,5 +146,25 @@ std::complex<double> pert::dipolePlaneWave(wavefunction &wf, double &k)
     }
     mu *= wf.dx1;
     return mu;
+}
+
+/*-------------------------------------------------------------------------------------*/
+
+void pert::createCosineSquare(vector<double> &dummy, double dt, double amp, double duration, double freq, double phi)
+{
+    int Nhalf = int(floor(0.5 * duration / dt));
+    int N = 2 * Nhalf;
+    vector<double> s(N, 0.0);
+    for (int i = 0; i < N; i++)
+    {
+        double time = (-Nhalf + i) * dt;
+        s[i] = amp * pow(cos(pi * time / duration), 2.0) * cos(freq * time + phi);
+    }
+    dummy = s;
+}
+
+void pert::takeEnergy(vector<double> &dummy)
+{
+    dummy = stateEnergy;
 }
 
