@@ -24,10 +24,13 @@ public:
 	static void closeFile(std::ifstream &filename);
     static void readInput(std::ifstream &input);
     std::vector<double> a1;
-
+    std::complex<double> secondIntegral(int m, double tPrime, double t, double omega,
+    				std::vector<double> field, std::vector<double> energy, double dt);
+    std::complex<double> firstIntegral(int m, double t, double omega, std::vector<double> field,
+    									std::vector<double> energy, double dt);
 
 private:
-	
+	double groundEnergy;
 };
 
 
