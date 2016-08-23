@@ -16,16 +16,24 @@ using namespace std;
 
 Parameter<string> wavefunctionFolder("wavefunctionFolder",
  "/Users/cgoldsmith/repos/delayFitting/Data/eigenstates/WF", "directory location");
-Parameter<string> outputFolder("outputFolder", "/Users/cgoldsmith/repos/delayFitting/Data/pertOutput");
+Parameter<string> outputFolder("outputFolder", "/Users/cgoldsmith/repos/delayFitting/Data/pertOutput/");
 Parameter<int> nState("nState", 4, "number of states");
 Parameter<int> nPoint("nPoint", 8200, "number grid points");
 Parameter<double> spatialStep("spatialStep", 0.0732, "dx");
-
 
 int main(int argc, const char* argv[]) {
     
     pert pObject;
 	vector<double> omega;
+    
+    ofstream outputField;
+    pert::openFile(outputField, outputFolder() + "field.txt");
+    outputField.precision(15);
+
+    ofstream outputFieldTime;
+    pert::openFile(outputFieldTime, outputFolder() + "fieldTime.txt");
+    outputFieldTime.precision(15);
+
     
     vector<int> m;
 	vector<double> E_m;
@@ -37,6 +45,7 @@ int main(int argc, const char* argv[]) {
     vector< complex<double> > dip3f;
     vector< complex<double> > alphaOne;
     vector< complex<double> > alphaThree;
+    vector<double> timer;
     
     wavefunction wfG; wavefunction wf1; wavefunction wf3;
     char wfGround[50]; char wfFirst[50]; char wfThird[50];
@@ -65,8 +74,13 @@ int main(int argc, const char* argv[]) {
         alphaThree.push_back(elmtThree * dip03);
     }
     pObject.takeEnergy(E_m);
-    pObject.createCosineSquare(fieldX, 0.01, E0, T, 0.8313, -0.5*pi);
+    pObject.createCosineSquare(fieldX, timer, 0.01, E0, T, 0.8313, -0.5*pi);
     
+    for (int i = 0; i < timer.size(); i ++)
+    {
+        outputField<<fieldX[i]<<endl;
+        outputFieldTime<<timer[i]<<endl;
+    }
     
     /*Tests*/
     cout<<pObject.secondIntegral(1, 1, T, 0.8313, fieldX, E_m, 0.01)<<endl;

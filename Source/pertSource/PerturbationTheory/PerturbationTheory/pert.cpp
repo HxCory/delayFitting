@@ -35,12 +35,12 @@ pert::~pert()
 {
 }
 
-void pert::openFile(std::ifstream &filename, std::string name)
+void pert::openFile(std::ofstream &filename, std::string name)
 {
 	filename.open(name.c_str());
 }
 
-void pert::closeFile(std::ifstream &filename)
+void pert::closeFile(std::ofstream &filename)
 {
 	filename.close();
 }
@@ -114,7 +114,8 @@ void pert::Initialize(wavefunction &wf, int nPoint, double spatialStep, int symm
     wf.one_by_dx1sqr = 1. / (wf.dx1 * wf.dx1);
 }
 
-void pert::setEnergies(std::vector<double> &energies, double min, double max, double interval)
+void pert::setEnergies(std::vector<double> &energies, double min,
+						 double max, double interval)
 {
     double point = min;
     while (point <= max) {
@@ -131,7 +132,8 @@ std::complex<double> pert::dipole(wavefunction &wf, wavefunction &wf2)
     complex<double> mu (0.0, 0.0);
     for (int i = 1; i <= wf.n1; i++)
     {
-        mu += -conj(wf.wave[wf.in2(1, i)]) * std::complex<double> (wf.x1[i], 0.0) * wf2.wave[wf2.in2(1, i)];
+        mu += -conj(wf.wave[wf.in2(1, i)]) 
+        	* std::complex<double> (wf.x1[i], 0.0) * wf2.wave[wf2.in2(1, i)];
     }
     mu *= wf.dx1;
     return mu;
@@ -142,7 +144,8 @@ std::complex<double> pert::dipolePlaneWave(wavefunction &wf, double &k)
     complex<double> mu (0.0, 0.0);
     for (int i = 1; i <= wf.n1; i++)
     {
-        mu += -(wf.wave[wf.in2(1,i)]) * complex<double> (wf.x1[i], 0.0) * exp(complex<double>(0.0, -k * wf.x1[i]));
+        mu += -(wf.wave[wf.in2(1,i)]) * complex<double> (wf.x1[i], 0.0) 
+        		* exp(complex<double>(0.0, -k * wf.x1[i]));
     }
     mu *= wf.dx1;
     return mu;
@@ -150,15 +153,19 @@ std::complex<double> pert::dipolePlaneWave(wavefunction &wf, double &k)
 
 /*-------------------------------------------------------------------------------------*/
 
-void pert::createCosineSquare(vector<double> &dummy, double dt, double amp, double duration, double freq, double phi)
+void pert::createCosineSquare(vector<double> &dummy, vector<double> &dummyTime,
+ 		double dt, double amp, double duration, double freq, double phi)
 {
     int Nhalf = int(floor(0.5 * duration / dt));
     int N = 2 * Nhalf;
     vector<double> s(N, 0.0);
+    
     for (int i = 0; i < N; i++)
     {
         double time = (-Nhalf + i) * dt;
-        s[i] = amp * pow(cos(pi * time / duration), 2.0) * cos(freq * time + phi);
+        dummyTime.push_back(time);
+        s[i] = amp * pow(cos(pi * time / duration), 2.0) 
+        		* cos(freq * time + phi);
     }
     dummy = s;
 }
