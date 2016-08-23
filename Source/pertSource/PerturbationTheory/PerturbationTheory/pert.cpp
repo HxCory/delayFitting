@@ -59,10 +59,13 @@ void pert::closeFile(std::ifstream &filename)
 	filename.close();
 }
 
+/*-------------------------------------------------------------------------------------*/
+
+
 std::complex<double> pert::secondIntegral(int m, double tPrime, double t, 
 	double omega, std::vector<double> field, std::vector<double> energy, double dt)
 {
-	std::complex<double> s = (0.0, 0.0);
+	std::complex<double> s;
 	int numPoints=field.size();
 	std::vector<double> time(numPoints, 0.0);
 	int Nhalf=int(0.5 * t / dt);
@@ -83,7 +86,7 @@ std::complex<double> pert::secondIntegral(int m, double tPrime, double t,
 std::complex<double> pert::firstIntegral(int m, double t, double omega,
  				std::vector<double> field, std::vector<double> energy, double dt)
 {
-	std::complex<double> s = (0.0, 0.0);
+	std::complex<double> s;
 	int numPoints = field.size();
 	std::vector<double> time(numPoints, 0.0);
 	int Nhalf = int(0.5 * t / dt);
@@ -96,3 +99,44 @@ std::complex<double> pert::firstIntegral(int m, double t, double omega,
 	}
 	return s * dt;
 }
+
+/*-------------------------------------------------------------------------------------*/
+
+void Initialize(wavefunction &wf, int nPoint, double spatialStep, int symm)
+{
+    wf.verbose = false;
+    
+    /*Initialize symmetry*/
+  
+    wf.symmetry_x1 = symm;
+    wf.n1 = nPoint;
+
+    /*Allocate the wavefx*/
+    wf.wave.resize((wf.n1 + 2) * (2) ,0.);
+}
+
+/*-------------------------------------------------------------------------------------*/
+
+
+std::complex<double> pert::dipole(wavefunction &wf, wavefunction &wf2)
+{
+    complex<double> mu (0.0, 0.0);
+    for (int i = 1; i <= wf.n1; i++)
+    {
+        mu += -conj(wf.wave[wf.in2(1, i)]) * std::complex<double> (wf.x1[i], 0.0) * wf2.wave[wf2.in2(1, i)];
+    }
+    mu *= wf.dx1;
+    return mu;
+}
+
+std::complex<double> pert::dipolePlaneWave(wavefunction &wf, double &k)
+{
+    complex<double> mu (0.0, 0.0);
+    for (int i = 1; i <= wf.n1; i++)
+    {
+        mu += -(wf.wave[wf.in2(1,i)]) * complex<double> (wf.x1[i], 0.0) * exp(complex<double>(0.0, -k * wf.x1[i]));
+    }
+    mu *= wf.dx1;
+    return mu;
+}
+

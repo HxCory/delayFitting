@@ -14,6 +14,7 @@
 #include <fstream>
 #include <istream>
 #include <complex>
+#include "wavefunction.h"
 
 class pert
 {
@@ -28,6 +29,14 @@ public:
     				std::vector<double> field, std::vector<double> energy, double dt);
     std::complex<double> firstIntegral(int m, double t, double omega, std::vector<double> field,
     									std::vector<double> energy, double dt);
+    
+    //wavefunction operators
+    void Initialize(wavefunction &wf, int nPoint, double spatialStep, int symm);
+    
+    //Dipole Operators
+    std::complex<double> dipole(wavefunction &wf, wavefunction &wf2);
+    std::complex<double> dipolePlaneWave(wavefunction &wf, double &k);
+    
 
 private:
 	double groundEnergy;

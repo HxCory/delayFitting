@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DB171ED61D6CB72E00837E81 /* Parameter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DB171ED41D6CB72E00837E81 /* Parameter.cpp */; };
+		DB171ED81D6CB7E400837E81 /* ConfigFileParser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DB171ED71D6CB7E400837E81 /* ConfigFileParser.cpp */; };
 		DB64EDD81D678E03005DDF41 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DB64EDD71D678E03005DDF41 /* main.cpp */; };
 		DB64EE0A1D679289005DDF41 /* pert.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DB64EE091D679289005DDF41 /* pert.cpp */; };
 /* End PBXBuildFile section */
@@ -24,6 +26,12 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		DB171EC91D6CABBA00837E81 /* wavefunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wavefunction.h; sourceTree = "<group>"; };
+		DB171ECA1D6CABBA00837E81 /* constant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = constant.h; sourceTree = "<group>"; };
+		DB171ECC1D6CABBA00837E81 /* ConfigFileParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigFileParser.h; sourceTree = "<group>"; };
+		DB171ED41D6CB72E00837E81 /* Parameter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Parameter.cpp; sourceTree = "<group>"; };
+		DB171ED51D6CB72E00837E81 /* ParameterMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParameterMap.h; sourceTree = "<group>"; };
+		DB171ED71D6CB7E400837E81 /* ConfigFileParser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ConfigFileParser.cpp; sourceTree = "<group>"; };
 		DB64EDD41D678E03005DDF41 /* PerturbationTheory */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PerturbationTheory; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB64EDD71D678E03005DDF41 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		DB64EDDE1D678E65005DDF41 /* pert.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = pert.hpp; sourceTree = "<group>"; };
@@ -63,6 +71,12 @@
 				DB64EDD71D678E03005DDF41 /* main.cpp */,
 				DB64EDDE1D678E65005DDF41 /* pert.hpp */,
 				DB64EE091D679289005DDF41 /* pert.cpp */,
+				DB171EC91D6CABBA00837E81 /* wavefunction.h */,
+				DB171ED71D6CB7E400837E81 /* ConfigFileParser.cpp */,
+				DB171ED41D6CB72E00837E81 /* Parameter.cpp */,
+				DB171ED51D6CB72E00837E81 /* ParameterMap.h */,
+				DB171ECA1D6CABBA00837E81 /* constant.h */,
+				DB171ECC1D6CABBA00837E81 /* ConfigFileParser.h */,
 			);
 			path = PerturbationTheory;
 			sourceTree = "<group>";
@@ -123,7 +137,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DB171ED81D6CB7E400837E81 /* ConfigFileParser.cpp in Sources */,
 				DB64EE0A1D679289005DDF41 /* pert.cpp in Sources */,
+				DB171ED61D6CB72E00837E81 /* Parameter.cpp in Sources */,
 				DB64EDD81D678E03005DDF41 /* main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -245,6 +261,7 @@
 				DB64EDDD1D678E03005DDF41 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

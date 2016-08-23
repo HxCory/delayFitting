@@ -1,0 +1,21 @@
+wfname = wf1D_R2.640000_2
+n_points = (8200, 5, 0)
+spatial_step = (0.0732, 1.21638e-312, 1.21638e-312)
+symmetry_x2 = (-1961106712)
+# # --------------------- <Configuration> ---------------------
+# Nstate = 4                    # number of states we want to calculate
+# R_in = 2.64                 # BO-fixed nuclear distance
+# Z = 1                    # Z in Coulomb potential
+# dt = 0.0168               # Time step
+# free_propagation_steps = 10000                # free propagation steps
+# gauss_center = 0                    # Center of Gaussian for ground state
+# initial_momentum = 0                    # Initial momentum of wavepacket
+# jobname = wavefxCalc           # The Name of the job
+# n_point = 8200                 # number of points for R
+# outputFolder = wavefxCalc__2/       # The basename of the output directory
+# sigma = 1                    # width of the pulse
+# softcore = 0.001                # soft core parameter
+# spatial_step = 0.0732               # spatial_steps for R
+# wavefunctionFolder = /p5data2/cogo4490/h2pData/WF/ # The basename of the output directory
+# x_symmetry = 0                    # symmetry in x direction
+# # --------------------- </Configuration> --------------------
