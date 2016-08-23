@@ -24,6 +24,7 @@ pert::pert()
 ,  secondEnergy(-0.4905)
 ,  thirdEnergy(-0.3278)
 ,  stateEnergy(4)
+,  dt0(1)
 {
     stateEnergy[0] = groundEnergy;
     stateEnergy[1] = firstEnergy;
@@ -48,8 +49,8 @@ void pert::closeFile(std::ofstream &filename)
 /*-------------------------------------------------------------------------------------*/
 
 
-std::complex<double> pert::secondIntegral(int m, double tPrime, double t, 
-	double omega, std::vector<double> field, std::vector<double> energy, double dt)
+std::complex<double> pert::secondIntegral(int m, double tPrime, double &t,
+	double omega, std::vector<double> &field, std::vector<double> &energy, double dt)
 {
 	std::complex<double> s;
 	int numPoints = field.size();
@@ -59,18 +60,19 @@ std::complex<double> pert::secondIntegral(int m, double tPrime, double t,
 	{
 		time[i] = (-Nhalf+i) * dt;
 		
-		if(time[i]<=tPrime)
+		if(time[i] <= tPrime)
 		{
-			s += exp(std::complex<double>(0.0, (energy[m] - groundEnergy) * time[i])) *
-				std::complex<double>(field[i], 0.0);
+			s += exp(std::complex<double>(0.0, (energy[m] - groundEnergy)
+				 * time[i])) * std::complex<double>(field[i], 0.0);
 		}
 	}
 
 	return s * dt;
 }
 
-std::complex<double> pert::firstIntegral(int m, double t, double omega,
- 				std::vector<double> field, std::vector<double> energy, double dt)
+std::complex<double> pert::firstIntegral(int m, double &t, double &omega,
+ 				std::vector<double> &field, std::vector<double> &energy, 
+ 				double &dt)
 {
 	std::complex<double> s;
 	int numPoints = field.size();
@@ -79,9 +81,10 @@ std::complex<double> pert::firstIntegral(int m, double t, double omega,
 	for (int i = 0; i < numPoints; ++i)
 	{
 		time[i] = (-Nhalf + i) * dt;
-		s += exp(std::complex<double> (0.0, ((2 * omega) + groundEnergy - energy[m])
-			* time[i])) * std::complex<double> (field[i], 0.0) * secondIntegral(
-				m, time[i], t, omega, field, energy, dt);
+		s += exp(std::complex<double> (0.0, ((2 * omega) 
+			+ groundEnergy - energy[m])
+			* time[i])) * std::complex<double> (field[i], 0.0) 
+			* secondIntegral(m, time[i], t, omega, field, energy, dt);
 	}
 	return s * dt;
 }
