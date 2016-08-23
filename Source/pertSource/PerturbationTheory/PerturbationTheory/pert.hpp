@@ -31,7 +31,7 @@ public:
     									std::vector<double> energy, double dt);
     
     //wavefunction operators
-    void Initialize(wavefunction &wf, int nPoint, double spatialStep, int symm);
+    static void Initialize(wavefunction &wf, int nPoint, double spatialStep, int symm = 0);
     
     //Dipole Operators
     std::complex<double> dipole(wavefunction &wf, wavefunction &wf2);

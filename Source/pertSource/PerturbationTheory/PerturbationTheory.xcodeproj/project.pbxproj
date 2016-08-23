@@ -27,11 +27,11 @@
 
 /* Begin PBXFileReference section */
 		DB171EC91D6CABBA00837E81 /* wavefunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wavefunction.h; sourceTree = "<group>"; };
-		DB171ECA1D6CABBA00837E81 /* constant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = constant.h; sourceTree = "<group>"; };
 		DB171ECC1D6CABBA00837E81 /* ConfigFileParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigFileParser.h; sourceTree = "<group>"; };
 		DB171ED41D6CB72E00837E81 /* Parameter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Parameter.cpp; sourceTree = "<group>"; };
 		DB171ED51D6CB72E00837E81 /* ParameterMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParameterMap.h; sourceTree = "<group>"; };
 		DB171ED71D6CB7E400837E81 /* ConfigFileParser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ConfigFileParser.cpp; sourceTree = "<group>"; };
+		DB171EE41D6CDDFE00837E81 /* constant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = constant.h; sourceTree = "<group>"; };
 		DB64EDD41D678E03005DDF41 /* PerturbationTheory */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PerturbationTheory; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB64EDD71D678E03005DDF41 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		DB64EDDE1D678E65005DDF41 /* pert.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = pert.hpp; sourceTree = "<group>"; };
@@ -71,11 +71,11 @@
 				DB64EDD71D678E03005DDF41 /* main.cpp */,
 				DB64EDDE1D678E65005DDF41 /* pert.hpp */,
 				DB64EE091D679289005DDF41 /* pert.cpp */,
+				DB171EE41D6CDDFE00837E81 /* constant.h */,
 				DB171EC91D6CABBA00837E81 /* wavefunction.h */,
 				DB171ED71D6CB7E400837E81 /* ConfigFileParser.cpp */,
 				DB171ED41D6CB72E00837E81 /* Parameter.cpp */,
 				DB171ED51D6CB72E00837E81 /* ParameterMap.h */,
-				DB171ECA1D6CABBA00837E81 /* constant.h */,
 				DB171ECC1D6CABBA00837E81 /* ConfigFileParser.h */,
 			);
 			path = PerturbationTheory;

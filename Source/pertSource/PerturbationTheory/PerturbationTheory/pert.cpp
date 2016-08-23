@@ -102,7 +102,7 @@ std::complex<double> pert::firstIntegral(int m, double t, double omega,
 
 /*-------------------------------------------------------------------------------------*/
 
-void Initialize(wavefunction &wf, int nPoint, double spatialStep, int symm)
+void pert::Initialize(wavefunction &wf, int nPoint, double spatialStep, int symm)
 {
     wf.verbose = false;
     
@@ -113,6 +113,19 @@ void Initialize(wavefunction &wf, int nPoint, double spatialStep, int symm)
 
     /*Allocate the wavefx*/
     wf.wave.resize((wf.n1 + 2) * (2) ,0.);
+
+    /*Allocate grid*/
+    abs(symm) == 1
+        ? wf.x1.type = HalfAxis
+        : wf.x1.type = FullAxis;
+    
+    wf.x1.Init("x", nPoint, spatialStep, wf.x1.type);
+    wf.dp1 = 2 * pi / (wf.dx1 * wf.n1);
+    wf.p1.Init("p_x", nPoint, wf.dp1, FFTWAxis);
+    
+    /*Initialize spatial grid helper constants*/
+    wf.one_by_dx1 = 1. / wf.dx1;
+    wf.one_by_dx1sqr = 1. / (wf.dx1 * wf.dx1);
 }
 
 /*-------------------------------------------------------------------------------------*/
