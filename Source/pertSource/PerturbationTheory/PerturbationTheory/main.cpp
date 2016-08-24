@@ -65,7 +65,8 @@ int main(int argc, const char* argv[]) {
     vector< complex<double> > alphaOne;
     vector< complex<double> > alphaThree;
     vector<double> timer;
-    vector<complex<double>> cf;
+    vector< complex<double> > cf;
+    vector< vector<double> > fieldVector(timer.size(), omega.size(), 0.0);
     complex<double> fac;
 
     wavefunction wfG; wavefunction wf1; wavefunction wf3;
@@ -106,6 +107,14 @@ int main(int argc, const char* argv[]) {
         outputFieldTime<<timer[i]<<endl;
     }
 
+    for int(i - 0; i < timer.size(); i++)
+    {
+    	for (int j = 0; j < count; ++j)
+    	{
+    		fieldVector[i][j] =
+    	}
+    }
+
     for(int j = 0; j < omega.size(); j++)
     {
     	outputOmega<<omega[j]<<endl;
@@ -114,7 +123,6 @@ int main(int argc, const char* argv[]) {
         fac = (alphaOne[j] * pObject.firstIntegral(1, T, omega[j], fieldX,
                 E_m, pObject.dt0)) + (alphaThree[j] * pObject.firstIntegral
                 (3, T, omega[j], fieldX, E_m, pObject.dt0));
-//        cf.push_back(fac);
         outputRealCf<<real(fac)<<endl;
         outputImagCf<<imag(fac)<<endl;
         cout<<fac<<endl;
