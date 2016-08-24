@@ -24,7 +24,7 @@ pert::pert()
 ,  secondEnergy(-0.4905)
 ,  thirdEnergy(-0.3278)
 ,  stateEnergy(4)
-,  dt0(0.1)
+,  dt0(0.01)
 {
     stateEnergy[0] = groundEnergy;
     stateEnergy[1] = firstEnergy;
