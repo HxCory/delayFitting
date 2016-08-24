@@ -66,7 +66,7 @@ int main(int argc, const char* argv[]) {
     vector< complex<double> > alphaThree;
     vector<double> timer;
     vector< complex<double> > cf;
-    vector< vector<double> > fieldVector(timer.size(), omega.size(), 0.0);
+    vector<double> dummyField;
     complex<double> fac;
 
     wavefunction wfG; wavefunction wf1; wavefunction wf3;
@@ -84,8 +84,8 @@ int main(int argc, const char* argv[]) {
     wf3.load(wfThird);
 
 /*Ops*/    
-    complex<double> dip01 = pObject.dipole(wfG, wf1);
-    complex<double> dip03 = pObject.dipole(wfG, wf3);    
+    complex<double> dip01 = pObject.dipole(wf1, wfG);
+    complex<double> dip03 = pObject.dipole(wf3, wfG);    
     pObject.setEnergies(omega, 0.56, 1.2, 0.001);
     
     for (int i = 0; i < omega.size(); i++)
@@ -97,32 +97,30 @@ int main(int argc, const char* argv[]) {
         alphaOne.push_back(elmtOne * dip01);
         alphaThree.push_back(elmtThree * dip03);
     }
+    vector< vector<double> > fieldVector(omega.size(), vector<double> (timer.size(), 0.0));
 
     pObject.takeEnergy(E_m);
-    pObject.createCosineSquare(fieldX, timer, pObject.dt0, E0, T, 0.8313, -0.5*pi);
+    pObject.createCosineSquare(fieldVector, timer, pObject.dt0, E0, T, omega, -0.5*pi);
     
-    for (int i = 0; i < timer.size(); i ++)
+    for (int i = 0; i < timer.size(); i++)
     {
-        outputField<<fieldX[i]<<endl;
+        for (int j = 0; j < omega.size(); j++)
+        {
+            outputField<<fieldVector[i][j]<<"\t";
+        }
+        outputField<<endl;
         outputFieldTime<<timer[i]<<endl;
     }
 
-    for int(i - 0; i < timer.size(); i++)
-    {
-    	for (int j = 0; j < count; ++j)
-    	{
-    		fieldVector[i][j] =
-    	}
-    }
-
+    
     for(int j = 0; j < omega.size(); j++)
     {
     	outputOmega<<omega[j]<<endl;
     	outputAlphaOne<<real(alphaOne[j])<<endl;
     	outputAlphaThree<<real(alphaThree[j])<<endl;
-        fac = (alphaOne[j] * pObject.firstIntegral(1, T, omega[j], fieldX,
+        fac = (alphaOne[j] * pObject.firstIntegral(1, T, omega[j], fieldVector[j],
                 E_m, pObject.dt0)) + (alphaThree[j] * pObject.firstIntegral
-                (3, T, omega[j], fieldX, E_m, pObject.dt0));
+                (3, T, omega[j], fieldVector[j], E_m, pObject.dt0));
         outputRealCf<<real(fac)<<endl;
         outputImagCf<<imag(fac)<<endl;
         cout<<fac<<endl;

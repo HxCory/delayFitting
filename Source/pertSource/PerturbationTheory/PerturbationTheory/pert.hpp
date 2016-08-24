@@ -44,8 +44,9 @@ public:
     vector<double> stateEnergy;
     
     //Field Operators
-    void createCosineSquare(vector<double> &dummy, vector<double> &dummyTime,
-    			double dt, double amp, double length, double freq, double phi);
+    void createCosineSquare(vector<vector<double>> &dummy, vector<double> &dummyTime,
+    			double dt, double amp, double length, vector<double> &dummyOmega,
+    			double phi);
     void takeEnergy(vector<double> &dummy);
 
     //dt

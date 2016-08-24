@@ -24,7 +24,7 @@ pert::pert()
 ,  secondEnergy(-0.4905)
 ,  thirdEnergy(-0.3278)
 ,  stateEnergy(4)
-,  dt0(0.05)
+,  dt0(1)
 {
     stateEnergy[0] = groundEnergy;
     stateEnergy[1] = firstEnergy;
@@ -156,19 +156,26 @@ std::complex<double> pert::dipolePlaneWave(wavefunction &wf, double &k)
 
 /*-------------------------------------------------------------------------------------*/
 
-void pert::createCosineSquare(vector<double> &dummy, vector<double> &dummyTime,
- 		double dt, double amp, double duration, double freq, double phi)
+void pert::createCosineSquare(vector<vector<double>> &dummy,
+ vector<double> &dummyTime,	double dt, double amp, double duration,
+  vector<double> &dummyOmega, double phi)
 {
     int Nhalf = int(floor(0.5 * duration / dt));
     int N = 2 * Nhalf;
-    vector<double> s(N, 0.0);
+    vector< vector<double> > s(N, vector<double>(dummyOmega.size(), 0.0));
     
     for (int i = 0; i < N; i++)
     {
-        double time = (-Nhalf + i) * dt;
-        dummyTime.push_back(time);
-        s[i] = amp * pow(cos(pi * time / duration), 2.0) 
-        		* cos(freq * time + phi);
+   		double time = (-Nhalf + i) * dt;
+   		dummyTime.push_back(time);
+
+    	for (int j = 0; j < dummyOmega.size(); ++j)
+    	{
+            double currentOmega = dummyOmega[j];
+       	 	s[i][j] = amp * pow(cos(pi * time / duration), 2.0) 
+        				* cos(currentOmega * time + phi);
+    	}
+        
     }
     dummy = s;
 }

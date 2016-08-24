@@ -38,9 +38,5 @@
 ehthumbs.db
 Thumbs.db
 *.ipynb
-
-*.ipynb
-
 *.o
-
-*.o
+*.dia
