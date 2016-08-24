@@ -24,7 +24,7 @@ pert::pert()
 ,  secondEnergy(-0.4905)
 ,  thirdEnergy(-0.3278)
 ,  stateEnergy(4)
-,  dt0(1)
+,  dt0(0.01)
 {
     stateEnergy[0] = groundEnergy;
     stateEnergy[1] = firstEnergy;
@@ -142,17 +142,22 @@ std::complex<double> pert::dipole(wavefunction &wf, wavefunction &wf2)
     return mu;
 }
 
-std::complex<double> pert::dipolePlaneWave(wavefunction &wf, double &k)
+std::complex<double> pert::dipolePlaneWave(wavefunction &wf, double k)
 {
     complex<double> mu (0.0, 0.0);
     for (int i = 1; i <= wf.n1; i++)
     {
-        mu += -(wf.wave[wf.in2(1,i)]) * complex<double> (wf.x1[i], 0.0) 
+        mu += -(wf.wave[wf.in2(1, i)]) * complex<double> (wf.x1[i], 0.0) 
         		* exp(complex<double>(0.0, -k * wf.x1[i]));
     }
     mu *= wf.dx1;
     return mu;
 }
+
+double pert::getMomentum(double &omega)
+{
+	return sqrt(2*(2 * omega + groundEnergy));
+} 
 
 /*-------------------------------------------------------------------------------------*/
 

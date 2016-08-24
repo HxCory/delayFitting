@@ -40,9 +40,10 @@ public:
     
     //Dipole Operators
     std::complex<double> dipole(wavefunction &wf, wavefunction &wf2);
-    std::complex<double> dipolePlaneWave(wavefunction &wf, double &k);
+    std::complex<double> dipolePlaneWave(wavefunction &wf, double k);
     vector<double> stateEnergy;
-    
+    double getMomentum(double &omega);
+
     //Field Operators
     void createCosineSquare(vector<vector<double>> &dummy, vector<double> &dummyTime,
     			double dt, double amp, double length, vector<double> &dummyOmega,
