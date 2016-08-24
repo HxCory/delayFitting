@@ -63,6 +63,6 @@ dimcf = np.gradient(imcf, domega)
 cfSquare = (recf + cmath.sqrt(-1)*imcf) * (recf - cmath.sqrt(-1)*imcf)
 delay = (recf*dimcf - imcf*drecf)
 
-plt.plot(omega, delay/cfSquare, 'r-', x, y, 'bo')
+plt.plot(omega, -delay/cfSquare, 'r-', x, y, 'bo')
 plb.ylim([-20, 20])
 plt.show()

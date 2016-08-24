@@ -31,8 +31,7 @@ public:
     								std::vector<double> &field,
     								std::vector<double> &energy, double &dt);
     
-    void setEnergies(std::vector<double> &energies, double min, 
-    								double max, double interval);
+    void setEnergies(std::vector<double> &energies);
     
     //wavefunction operators
     static void Initialize(wavefunction &wf, int nPoint, double spatialStep,
@@ -50,8 +49,11 @@ public:
     			double phi);
     void takeEnergy(vector<double> &dummy);
 
-    //dt
+    //d's
 	double dt0;
+	double domega0;
+	double omegaMin;
+	double omegaMax;
 
 private:
 	double groundEnergy;

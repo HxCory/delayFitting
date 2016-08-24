@@ -86,7 +86,7 @@ int main(int argc, const char* argv[]) {
 /*Ops*/    
     complex<double> dip01 = pObject.dipole(wf1, wfG);
     complex<double> dip03 = pObject.dipole(wf3, wfG);    
-    pObject.setEnergies(omega, 0.58, 1.4, 0.001);
+    pObject.setEnergies(omega);
     pObject.takeEnergy(E_m);
 
     for (int i = 0; i < omega.size(); i++)
@@ -98,8 +98,8 @@ int main(int argc, const char* argv[]) {
         alphaOne.push_back(elmtOne);
         alphaThree.push_back(elmtThree);
     }
-    vector< vector<double> > fieldVector(omega.size(), vector<double> (timer.size(), 0.0));
 
+    vector< vector<double> > fieldVector(omega.size(), vector<double> (timer.size(), 0.0));
     pObject.createCosineSquare(fieldVector, timer, pObject.dt0, E0, T, omega, -0.5*pi);
     
     for (int i = 0; i < timer.size(); i++)

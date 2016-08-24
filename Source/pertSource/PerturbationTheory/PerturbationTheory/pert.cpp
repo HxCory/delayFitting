@@ -24,7 +24,10 @@ pert::pert()
 ,  secondEnergy(-0.4905)
 ,  thirdEnergy(-0.3278)
 ,  stateEnergy(4)
-,  dt0(0.01)
+,  dt0(1)
+,  domega0(0.0005)
+,  omegaMin(0.58)
+,  omegaMax(1.4)
 {
     stateEnergy[0] = groundEnergy;
     stateEnergy[1] = firstEnergy;
@@ -117,13 +120,12 @@ void pert::Initialize(wavefunction &wf, int nPoint, double spatialStep, int symm
     wf.one_by_dx1sqr = 1. / (wf.dx1 * wf.dx1);
 }
 
-void pert::setEnergies(std::vector<double> &energies, double min,
-						 double max, double interval)
+void pert::setEnergies(std::vector<double> &energies)
 {
-    double point = min;
-    while (point <= max) {
+    double point = omegaMin;
+    while (point <= omegaMax) {
         energies.push_back(point);
-        point += interval;
+        point += domega0;
     }
 }
 
