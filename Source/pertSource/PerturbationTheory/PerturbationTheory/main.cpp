@@ -106,7 +106,7 @@ int main(int argc, const char* argv[]) {
     {
         for (int j = 0; j < omega.size(); j++)
         {
-            outputField<<fieldVector[i][j]<<"\t";
+            outputField<<fieldVector[j][i]<<"\t";
         }
         outputField<<endl;
         outputFieldTime<<timer[i]<<endl;

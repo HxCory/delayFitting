@@ -24,7 +24,7 @@ pert::pert()
 ,  secondEnergy(-0.4905)
 ,  thirdEnergy(-0.3278)
 ,  stateEnergy(4)
-,  dt0(0.01)
+,  dt0(0.1)
 {
     stateEnergy[0] = groundEnergy;
     stateEnergy[1] = firstEnergy;
@@ -167,7 +167,7 @@ void pert::createCosineSquare(vector<vector<double>> &dummy,
 {
     int Nhalf = int(floor(0.5 * duration / dt));
     int N = 2 * Nhalf;
-    vector< vector<double> > s(N, vector<double>(dummyOmega.size(), 0.0));
+    vector< vector<double> > s(dummyOmega.size(), vector<double>(N, 0.0));
     
     for (int i = 0; i < N; i++)
     {
@@ -177,7 +177,7 @@ void pert::createCosineSquare(vector<vector<double>> &dummy,
     	for (int j = 0; j < dummyOmega.size(); ++j)
     	{
             double currentOmega = dummyOmega[j];
-       	 	s[i][j] = amp * pow(cos(pi * time / duration), 2.0) 
+       	 	s[j][i] = amp * pow(cos(pi * time / duration), 2.0) 
         				* cos(currentOmega * time + phi);
     	}
         
