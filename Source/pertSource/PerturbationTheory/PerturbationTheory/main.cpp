@@ -84,14 +84,15 @@ int main(int argc, const char* argv[]) {
     wf3.load(wfThird);
 
 /*Ops*/    
-    complex<double> dip01 = pObject.dipole(wf1, wfG);
+    complex<double> dip01 = -pObject.dipole(wf1, wfG);
     complex<double> dip03 = pObject.dipole(wf3, wfG);    
     pObject.setEnergies(omega);
     pObject.takeEnergy(E_m);
+    cout<<dip01<<"\t"<<dip03<<endl;
 
     for (int i = 0; i < omega.size(); i++)
     {
-        complex<double> elmtOne = dip01 * pObject.dipolePlaneWave(wf1, 
+        complex<double> elmtOne = dip01 * pObject.dipolePlaneWave(wf1,
         	pObject.getMomentum(omega[i]));
         complex<double> elmtThree = dip03 * pObject.dipolePlaneWave(wf3,
          	pObject.getMomentum(omega[i]));
