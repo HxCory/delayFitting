@@ -117,6 +117,7 @@ int main(int argc, const char* argv[]) {
 //        cf.push_back(fac);
         outputRealCf<<real(fac)<<endl;
         outputImagCf<<imag(fac)<<endl;
+        cout<<fac<<endl;
     }
     
 /*Tests*/

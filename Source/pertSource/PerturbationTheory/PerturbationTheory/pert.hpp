@@ -48,10 +48,7 @@ public:
     			double dt, double amp, double length, double freq, double phi);
     void takeEnergy(vector<double> &dummy);
 
-    std::complex<double> cf(int &m1, int &m2, double &t, double &omega, 
-	std::vector<double> &field, std::vector<double> &energy, double &dt,
-	double alphaOne, double alphaTwo);
-
+    //dt
 	double dt0;
 
 private:
