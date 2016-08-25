@@ -44,11 +44,11 @@ int main(int argc, const char* argv[]) {
     outputOmega.precision(15);
     
     ofstream outputImagCf;
-    pert::openFile(outputImagCf, outputFolder() + "recf.txt");
+    pert::openFile(outputImagCf, outputFolder() + "imcfThree.txt");
     outputImagCf.precision(15);
 
     ofstream outputRealCf;
-    pert::openFile(outputRealCf, outputFolder() + "imcf.txt");
+    pert::openFile(outputRealCf, outputFolder() + "recfThree.txt");
     outputRealCf.precision(15);
 
 /*Declarations*/
@@ -84,7 +84,7 @@ int main(int argc, const char* argv[]) {
     wf3.load(wfThird);
 
 /*Ops*/    
-    complex<double> dip01 = -pObject.dipole(wf1, wfG);
+    complex<double> dip01 = pObject.dipole(wf1, wfG);
     complex<double> dip03 = pObject.dipole(wf3, wfG);    
     pObject.setEnergies(omega);
     pObject.takeEnergy(E_m);
@@ -119,9 +119,12 @@ int main(int argc, const char* argv[]) {
     	outputOmega<<omega[j]<<endl;
     	outputAlphaOne<<real(alphaOne[j])<<endl;
     	outputAlphaThree<<real(alphaThree[j])<<endl;
-        fac = (alphaOne[j] * pObject.firstIntegral(1, T, omega[j], fieldVector[j],
-                E_m, pObject.dt0)) + (alphaThree[j] * pObject.firstIntegral
-                (3, T, omega[j], fieldVector[j], E_m, pObject.dt0));
+//        fac = (alphaOne[j] * pObject.firstIntegral(1, T, omega[j], fieldVector[j],
+//                E_m, pObject.dt0)) + (alphaThree[j] * pObject.firstIntegral
+//                 (3, T, omega[j], fieldVector[j], E_m, pObject.dt0));
+        fac = (alphaThree[j] * pObject.firstIntegral
+             (3, T, omega[j], fieldVector[j], E_m, pObject.dt0));
+        
         outputRealCf<<real(fac)<<endl;
         outputImagCf<<imag(fac)<<endl;
         cout<<fac<<endl;

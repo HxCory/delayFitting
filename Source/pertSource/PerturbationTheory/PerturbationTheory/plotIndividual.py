@@ -44,13 +44,13 @@ with open(Path + 'alphaThree.txt') as infile:
         i = i + 1
         
 i = 0
-with open(Path + 'recf.txt') as infile:
+with open(Path + 'recfOne.txt') as infile:
     for line in infile:
         recf[i] = (line.split()[0])
         i = i + 1
         
 i = 0
-with open(Path + 'imcf.txt') as infile:
+with open(Path + 'imcfOne.txt') as infile:
     for line in infile:
         imcf[i] = (line.split()[0])
         i = i + 1
@@ -63,9 +63,11 @@ dimcf = np.gradient(imcf, domega)
 cfSquare = recf**2 + imcf**2
 delay = (recf*dimcf - imcf*drecf)/cfSquare
 
-plt.plot(omega, delay, 'r-')#, x, y, 'bo')
-plb.ylim([-10, 10])
-plb.ylabel('streaking delay (a.u.)')
-plb.xlabel('central frequency (a.u.)')
-plb.legend(['model', 'TDSE'])
+# plt.plot(omega, cfSquare)
+
+plt.plot(omega, delay, 'r-')
+# plb.ylim([-10, 10])
+# plb.ylabel('streaking delay (a.u.)')
+# plb.xlabel('central frequency (a.u.)')
+# plb.legend(['model', 'TDSE'])
 plt.show()

@@ -24,8 +24,8 @@ pert::pert()
 ,  secondEnergy(-0.4905)
 ,  thirdEnergy(-0.3278)
 ,  stateEnergy(4)
-,  dt0(0.1)
-,  domega0(0.0001)
+,  dt0(0.5)
+,  domega0(0.001)
 ,  omegaMin(0.58)
 ,  omegaMax(1.4)
 {
@@ -191,4 +191,6 @@ void pert::takeEnergy(vector<double> &dummy)
 {
     dummy = stateEnergy;
 }
+
+// void pert::amplitude(vector<int> &states, vector<double> &omegas)
 
