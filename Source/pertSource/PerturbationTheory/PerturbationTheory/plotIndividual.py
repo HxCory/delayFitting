@@ -1,5 +1,4 @@
 import numpy as np
-from scipy.interpolate import UnivariateSpline
 import matplotlib.pyplot as plt
 import pylab as plb
 import cmath
@@ -22,8 +21,10 @@ with open(Path + 'omega.txt') as infile:
 omega = np.zeros(sizeO)
 alphaOne = np.zeros(sizeO)
 alphaThree = np.zeros(sizeO)
-recf = np.zeros(sizeO)
-imcf = np.zeros(sizeO)
+recfOne = np.zeros(sizeO)
+imcfOne = np.zeros(sizeO)
+recfThree = np.zeros(sizeO)
+imcfThree = np.zeros(sizeO)
 
 i = 0
 with open(Path + 'omega.txt') as infile:
@@ -46,28 +47,44 @@ with open(Path + 'alphaThree.txt') as infile:
 i = 0
 with open(Path + 'recfOne.txt') as infile:
     for line in infile:
-        recf[i] = (line.split()[0])
+        recfOne[i] = (line.split()[0])
         i = i + 1
         
 i = 0
 with open(Path + 'imcfOne.txt') as infile:
     for line in infile:
-        imcf[i] = (line.split()[0])
+        imcfOne[i] = (line.split()[0])
         i = i + 1
 
+i = 0
+with open(Path + 'recfThree.txt') as infile:
+    for line in infile:
+        recfThree[i] = (line.split()[0])
+        i = i + 1
+        
+i = 0
+with open(Path + 'imcfThree.txt') as infile:
+    for line in infile:
+        imcfThree[i] = (line.split()[0])
+        i = i + 1
 
 domega = np.gradient(omega)
-drecf = np.gradient(recf, domega)
-dimcf = np.gradient(imcf, domega)
 
-cfSquare = recf**2 + imcf**2
-delay = (recf*dimcf - imcf*drecf)/cfSquare
+drecfOne = np.gradient(recfOne, domega)
+dimcfOne = np.gradient(imcfOne, domega)
+cfSquareOne = recfOne**2 + imcfOne**2
+delayOne = (recfOne*dimcfOne - imcfOne*drecfOne)/cfSquareOne
 
-# plt.plot(omega, cfSquare)
+drecfThree = np.gradient(recfThree, domega)
+dimcfThree = np.gradient(imcfThree, domega)
+cfSquareThree = recfThree**2 + imcfThree**2
+delayThree = (recfThree*dimcfThree - imcfThree*drecfThree)/cfSquareThree
 
-plt.plot(omega, delay, 'r-')
+plt.plot(omega, cfSquareThree)
+# plt.plot(delayThree)
+# plt.plot(omega, delayOne, 'r-', delayThree, 'b-')
 # plb.ylim([-10, 10])
-# plb.ylabel('streaking delay (a.u.)')
-# plb.xlabel('central frequency (a.u.)')
-# plb.legend(['model', 'TDSE'])
+plb.ylabel('cf squared, just three')
+plb.xlabel('central frequency (a.u.)')
+plb.legend(['model', 'TDSE'])
 plt.show()
