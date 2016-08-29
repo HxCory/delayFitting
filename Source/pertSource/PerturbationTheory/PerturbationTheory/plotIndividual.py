@@ -80,11 +80,12 @@ dimcfThree = np.gradient(imcfThree, domega)
 cfSquareThree = recfThree**2 + imcfThree**2
 delayThree = (recfThree*dimcfThree - imcfThree*drecfThree)/cfSquareThree
 
-plt.plot(omega, cfSquareThree)
-# plt.plot(delayThree)
+# plt.plot(omega, cfSquareThree)
+plt.plot(omega, delayOne)
 # plt.plot(omega, delayOne, 'r-', delayThree, 'b-')
 # plb.ylim([-10, 10])
-plb.ylabel('cf squared, just three')
+plb.ylabel('delay, one only')
+# plb.ylabel('cf squared, just three')
 plb.xlabel('central frequency (a.u.)')
 plb.legend(['model', 'TDSE'])
 plt.show()
