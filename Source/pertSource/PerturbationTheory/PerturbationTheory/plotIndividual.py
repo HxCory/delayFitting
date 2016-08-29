@@ -81,11 +81,11 @@ cfSquareThree = recfThree**2 + imcfThree**2
 delayThree = (recfThree*dimcfThree - imcfThree*drecfThree)/cfSquareThree
 
 # plt.plot(omega, cfSquareThree)
-plt.plot(omega, np.arctan(imcfOne/recfOne))
-# plt.plot(omega, delayOne, 'r-', delayThree, 'b-')
+plt.plot(omega, recfThree, omega, imcfThree)
+# plt.plot(omega, alphaOne, 'r-', omega, alphaThree, 'b-')
 # plb.ylim([-10, 10])
-plb.ylabel('phase, one only')
-# plb.ylabel('cf squared, just three')
+# plb.ylabel('alphas')
+plb.ylabel('real and imag cf, just three')
 plb.xlabel('central frequency (a.u.)')
-# plb.legend(['real', 'imag'])
+plb.legend(['real', 'imag'])
 plt.show()
