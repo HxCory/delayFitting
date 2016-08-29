@@ -92,7 +92,7 @@ int main(int argc, const char* argv[]) {
 
     for (int i = 0; i < omega.size(); i++)
     {
-        complex<double> elmtOne = dip01 * pObject.dipolePlaneWave(wf1,
+        complex<double> elmtOne = -dip01 * pObject.dipolePlaneWave(wf1,
         	pObject.getMomentum(omega[i]));
         complex<double> elmtThree = dip03 * pObject.dipolePlaneWave(wf3,
          	pObject.getMomentum(omega[i]));
