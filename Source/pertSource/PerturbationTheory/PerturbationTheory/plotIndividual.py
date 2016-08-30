@@ -20,6 +20,8 @@ with open(Path + 'omega.txt') as infile:
 
 omega = np.zeros(sizeO)
 alphaOne = np.zeros(sizeO)
+reAlphaTwo = np.zeros(sizeO)
+imAlphaTwo = np.zeros(sizeO)
 alphaThree = np.zeros(sizeO)
 recfOne = np.zeros(sizeO)
 imcfOne = np.zeros(sizeO)
@@ -43,6 +45,14 @@ with open(Path + 'alphaThree.txt') as infile:
     for line in infile:
         alphaThree[i] = (line.split()[0])
         i = i + 1
+
+i = 0
+with open(Path + 'alphaTwo.txt') as infile:
+    for line in infile:
+        reAlphaTwo[i] = (line.split()[0])
+        imAlphaTwo[i] = (line.split()[0])
+        i = i + 1
+
         
 i = 0
 with open(Path + 'recfOne.txt') as infile:
@@ -81,7 +91,8 @@ cfSquareThree = recfThree**2 + imcfThree**2
 delayThree = (recfThree*dimcfThree - imcfThree*drecfThree)/cfSquareThree
 
 # plt.plot(omega, cfSquareThree)
-plt.plot(omega, recfThree, omega, imcfThree)
+plt.plot(omega, reAlphaTwo, omega, imAlphaTwo)
+# plt.plot(omega, recfThree, omega, imcfThree)
 # plt.plot(omega, alphaOne, 'r-', omega, alphaThree, 'b-')
 # plb.ylim([-10, 10])
 # plb.ylabel('alphas')
