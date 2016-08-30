@@ -91,7 +91,7 @@ cfSquareThree = recfThree**2 + imcfThree**2
 delayThree = (recfThree*dimcfThree - imcfThree*drecfThree)/cfSquareThree
 
 # plt.plot(omega, cfSquareThree)
-plt.plot(omega, reAlphaTwo, omega, imAlphaTwo)
+# plt.plot(omega, reAlphaTwo, omega, imAlphaTwo)
 # plt.plot(omega, recfThree, omega, imcfThree)
 # plt.plot(omega, alphaOne, 'r-', omega, alphaThree, 'b-')
 # plb.ylim([-10, 10])

@@ -98,6 +98,7 @@ int main(int argc, const char* argv[]) {
     vector< complex<double> > cf;
     vector<double> dummyField;
     complex<double> fac;
+    complex<double> facTwo;
 
     wavefunction wfG, wf1, wf2, wf3;
     char wfGround[50], wfFirst[50], wfSecond[50], wfThird[50];
@@ -126,9 +127,9 @@ int main(int argc, const char* argv[]) {
 
     for (int i = 0; i < omega.size(); i++)
     {
-        complex<double> elmtOne = -dip01 * pObject.dipolePlaneWave(wf1,
+        complex<double> elmtOne = dip01 * pObject.dipolePlaneWave(wf1,
         	pObject.getMomentum(omega[i]));
-        complex<double> elmtTwo = -dip02 * pObject.dipolePlaneWave(wf2,
+        complex<double> elmtTwo = dip02 * pObject.dipolePlaneWave(wf2,
             pObject.getMomentum(omega[i]));
         complex<double> elmtThree = dip03 * pObject.dipolePlaneWave(wf3,
          	pObject.getMomentum(omega[i]));
@@ -157,20 +158,22 @@ int main(int argc, const char* argv[]) {
     	outputAlphaOne<<real(alphaOne[j])<<endl;
         outputAlphaTwo<<real(alphaTwo[j])<<"\t"<<imag(alphaTwo[j])<<endl;
     	outputAlphaThree<<real(alphaThree[j])<<endl;
-       fac = (alphaOne[j] * pObject.firstIntegral(1, T, omega[j], fieldVector[j],
+        fac = (alphaOne[j] * pObject.firstIntegral(1, T, omega[j], fieldVector[j],
                E_m, pObject.dt0)) + (alphaTwo[j] * pObject.firstIntegral
                 (2, T, omega[j], fieldVector[j], E_m, pObject.dt0)) + (alphaThree[j] * pObject.firstIntegral
                 (3, T, omega[j], fieldVector[j], E_m, pObject.dt0));
-        // fac = (alphaThree[j] * pObject.firstIntegral
-        //      (3, T, omega[j], fieldVector[j], E_m, pObject.dt0));
+        facTwo = (alphaTwo[j] * pObject.firstIntegral
+              (2, T, omega[j], fieldVector[j], E_m, pObject.dt0));
         
         outputRealCf<<real(fac)<<endl;
         outputImagCf<<imag(fac)<<endl;
-        cout<<fac<<endl;
+        outputRealCfTwo<<real(facTwo)<<endl;
+        outputImagCfTwo<<imag(facTwo)<<endl;
+        cout<<fac<<"\t"<<facTwo<<endl;
     }
     
 /*Tests*/
-    cout<<real(fac)<<"\t"<<imag(fac)<<endl;
+    cout<<real(facTwo)<<"\t"<<imag(facTwo)<<endl;
     cout << "Go Dawgs!\n";
     return 0;
 }

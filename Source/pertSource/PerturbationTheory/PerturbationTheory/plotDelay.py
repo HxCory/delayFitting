@@ -62,10 +62,10 @@ dimcf = np.gradient(imcf, domega)
 cfSquare = recf**2 + imcf**2
 delay = (recf*dimcf - imcf*drecf)/cfSquare
 
-# plt.plot(omega, delay, 'r-', x, y, 'bo')
-# plb.ylim([-10, 10])
-# plb.ylabel('streaking delay (a.u.)')
-plt.plot(omega, np.arctan(imcf/recf))
+plt.plot(omega, delay, 'r-', x, y, 'bo')
+plb.ylim([-10, 10])
+plb.ylabel('streaking delay (a.u.)')
+# plt.plot(omega, np.arctan(imcf/recf))
 plb.ylabel('phase, first and third')
 plb.xlabel('central frequency (a.u.)')
 # plb.legend(['real', 'imag'])
