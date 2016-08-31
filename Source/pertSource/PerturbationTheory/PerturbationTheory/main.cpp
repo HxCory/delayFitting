@@ -16,10 +16,11 @@ using namespace std;
 
 Parameter<string> wavefunctionFolder("wavefunctionFolder",
  "/Users/cgoldsmith/repos/delayFitting/Data/eigenstates/WF", "directory location");
-Parameter<string> outputFolder("outputFolder", "/Users/cgoldsmith/repos/delayFitting/Data/pertOutput/");
+Parameter<string> outputFolder("outputFolder", "/Users/cgoldsmith/repos/delayFitting/Data/pertOutput/Tests/");
 Parameter<int> nState("nState", 4, "number of states");
 Parameter<int> nPoint("nPoint", 8200, "number grid points");
 Parameter<double> spatialStep("spatialStep", 0.0732, "dx");
+Parameter<double> alphaTwoTest("alphaTwoTest", 0.00091, "test value for alphaTwo");
 
 int main(int argc, const char* argv[]) {
 /*Output Stuff*/
@@ -98,8 +99,10 @@ int main(int argc, const char* argv[]) {
     vector< complex<double> > cf;
     vector<double> dummyField;
     complex<double> fac;
+    complex<double> facOne;
     complex<double> facTwo;
-
+    complex<double> facThree;
+    
     wavefunction wfG, wf1, wf2, wf3;
     char wfGround[50], wfFirst[50], wfSecond[50], wfThird[50];
 
@@ -134,7 +137,7 @@ int main(int argc, const char* argv[]) {
         complex<double> elmtThree = dip03 * pObject.dipolePlaneWave(wf3,
          	pObject.getMomentum(omega[i]));
         alphaOne.push_back(elmtOne);
-        alphaTwo.push_back(elmtTwo);
+        alphaTwo.push_back(alphaTwoTest());
         alphaThree.push_back(elmtThree);
     }
 
@@ -162,13 +165,21 @@ int main(int argc, const char* argv[]) {
                E_m, pObject.dt0)) + (alphaTwo[j] * pObject.firstIntegral
                 (2, T, omega[j], fieldVector[j], E_m, pObject.dt0)) + (alphaThree[j] * pObject.firstIntegral
                 (3, T, omega[j], fieldVector[j], E_m, pObject.dt0));
+        facOne = (alphaOne[j] * pObject.firstIntegral
+                  (1, T, omega[j], fieldVector[j], E_m, pObject.dt0));
         facTwo = (alphaTwo[j] * pObject.firstIntegral
-              (2, T, omega[j], fieldVector[j], E_m, pObject.dt0));
+                  (2, T, omega[j], fieldVector[j], E_m, pObject.dt0));
+        facThree = (alphaThree[j] * pObject.firstIntegral
+                  (3, T, omega[j], fieldVector[j], E_m, pObject.dt0));
         
         outputRealCf<<real(fac)<<endl;
         outputImagCf<<imag(fac)<<endl;
+        outputRealCfOne<<real(facOne)<<endl;
+        outputImagCfOne<<imag(facOne)<<endl;
         outputRealCfTwo<<real(facTwo)<<endl;
         outputImagCfTwo<<imag(facTwo)<<endl;
+        outputRealCfThree<<real(facThree)<<endl;
+        outputImagCfThree<<imag(facThree)<<endl;
         cout<<fac<<"\t"<<facTwo<<endl;
     }
     

@@ -4,7 +4,7 @@ import pylab as plb
 import cmath
 import os
 
-Path = '/Users/cgoldsmith/repos/delayFitting/Data/pertOutput/'
+Path = '/Users/cgoldsmith/repos/delayFitting/Data/pertOutput/Tests/'
 os.chdir(Path)
 
 Path2 = '/Users/cgoldsmith/Desktop/text_files_data'
