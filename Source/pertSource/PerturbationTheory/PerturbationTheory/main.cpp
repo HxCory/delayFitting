@@ -11,16 +11,20 @@
 #include "ParameterMap.h"
 #include "constant.h"
 #include "ConfigFileParser.h"
+#include <Python/Python.h>
 
 using namespace std;
 
 Parameter<string> wavefunctionFolder("wavefunctionFolder",
  "/Users/cgoldsmith/repos/delayFitting/Data/eigenstates/WF", "directory location");
-Parameter<string> outputFolder("outputFolder", "/Users/cgoldsmith/repos/delayFitting/Data/pertOutput/Tests/");
+Parameter<string> outputFolder("outputFolder", "/Users/cgoldsmith/repos/delayFitting/Data/pertOutput/MoreStateTests/");
+//Parameter<string> outputFolder("outputFolder", "/Users/cgoldsmith/repos/delayFitting/Data/pertOutput/");
 Parameter<int> nState("nState", 4, "number of states");
 Parameter<int> nPoint("nPoint", 8200, "number grid points");
 Parameter<double> spatialStep("spatialStep", 0.0732, "dx");
-Parameter<double> alphaTwoTest("alphaTwoTest", 0.00091, "test value for alphaTwo");
+Parameter<double> alphaTwoTest("alphaTwoTest", 0.004086301, "test value for alphaTwo");
+//Parameter<double> alphaTwoTest("alphaTwoTest", -0.00009408645, "test value for alphaTwo");
+
 
 int main(int argc, const char* argv[]) {
 /*Output Stuff*/
@@ -95,6 +99,8 @@ int main(int argc, const char* argv[]) {
     vector< complex<double> > alphaOne;
     vector< complex<double> > alphaTwo;
     vector< complex<double> > alphaThree;
+    vector< complex<double> > alphaFour;
+    vector< complex<double> > alphaFive;
     vector<double> timer;
     vector< complex<double> > cf;
     vector<double> dummyField;
@@ -102,31 +108,43 @@ int main(int argc, const char* argv[]) {
     complex<double> facOne;
     complex<double> facTwo;
     complex<double> facThree;
+    complex<double> facFour;
+    complex<double> facFive;
     
-    wavefunction wfG, wf1, wf2, wf3;
-    char wfGround[50], wfFirst[50], wfSecond[50], wfThird[50];
+    wavefunction wfG, wf1, wf2, wf3, wf4, wf5;
+    char wfGround[50], wfFirst[50], wfSecond[50], wfThird[50], wfFourth[50], wfFifth[50];
 
     /*Initialize Things*/
-    sprintf(wfGround, "wf1D_R2.640000_0"); 
-    sprintf(wfFirst, "wf1D_R2.640000_1"); 
-    sprintf(wfSecond, "wf1D_R2.640000_2");
-    sprintf(wfThird, "wf1D_R2.640000_3");
+    sprintf(wfGround, "testEwf_R2.640000_0");
+    sprintf(wfFirst, "testEwf_R2.640000_1");
+    sprintf(wfSecond, "testEwf_R2.640000_2");
+    sprintf(wfThird, "testEwf_R2.640000_3");
+    sprintf(wfFourth, "testEwf_R2.640000_4");
+    sprintf(wfFifth, "testEwf_R2.640000_5");
     pert::Initialize(wfG, nPoint(), spatialStep(), 0);
     pert::Initialize(wf1, nPoint(), spatialStep(), 0);
     pert::Initialize(wf2, nPoint(), spatialStep(), 0);
     pert::Initialize(wf3, nPoint(), spatialStep(), 0);
+    pert::Initialize(wf4, nPoint(), spatialStep(), 0);
+    pert::Initialize(wf5, nPoint(), spatialStep(), 0);
+
     wfG.load(wfGround);
     wf1.load(wfFirst);
     wf2.load(wfSecond);
     wf3.load(wfThird);
+    wf4.load(wfFourth);
+    wf5.load(wfFifth);
 
 /*Ops*/    
     complex<double> dip01 = pObject.dipole(wf1, wfG);
     complex<double> dip02 = pObject.dipole(wf2, wfG);
     complex<double> dip03 = pObject.dipole(wf3, wfG);    
+    complex<double> dip04 = pObject.dipole(wf4, wfG);
+    complex<double> dip05 = pObject.dipole(wf5, wfG);
+
     pObject.setEnergies(omega);
     pObject.takeEnergy(E_m);
-    cout<<dip01<<"\t"<<dip02<<"\t"<<dip03<<endl;
+    cout<<dip01<<"\t"<<dip02<<"\t"<<dip03<<"\t"<<dip04<<"\t"<<dip05<<endl;
 
     for (int i = 0; i < omega.size(); i++)
     {
@@ -136,9 +154,16 @@ int main(int argc, const char* argv[]) {
             pObject.getMomentum(omega[i]));
         complex<double> elmtThree = dip03 * pObject.dipolePlaneWave(wf3,
          	pObject.getMomentum(omega[i]));
+        complex<double> elmtFour = dip04 * pObject.dipolePlaneWave(wf4,
+            pObject.getMomentum(omega[i]));
+        complex<double> elmtFive = dip05 * pObject.dipolePlaneWave(wf5,
+            pObject.getMomentum(omega[i]));
         alphaOne.push_back(elmtOne);
-        alphaTwo.push_back(alphaTwoTest());
+//        alphaTwo.push_back(alphaTwoTest());
+        alphaTwo.push_back(elmtTwo);
         alphaThree.push_back(elmtThree);
+        alphaFour.push_back(elmtFour);
+        alphaFive.push_back(elmtFive);
     }
 
     vector< vector<double> > fieldVector(omega.size(), vector<double> (timer.size(), 0.0));
@@ -161,17 +186,19 @@ int main(int argc, const char* argv[]) {
     	outputAlphaOne<<real(alphaOne[j])<<endl;
         outputAlphaTwo<<real(alphaTwo[j])<<"\t"<<imag(alphaTwo[j])<<endl;
     	outputAlphaThree<<real(alphaThree[j])<<endl;
-        fac = (alphaOne[j] * pObject.firstIntegral(1, T, omega[j], fieldVector[j],
-               E_m, pObject.dt0)) + (alphaTwo[j] * pObject.firstIntegral
-                (2, T, omega[j], fieldVector[j], E_m, pObject.dt0)) + (alphaThree[j] * pObject.firstIntegral
-                (3, T, omega[j], fieldVector[j], E_m, pObject.dt0));
+        
         facOne = (alphaOne[j] * pObject.firstIntegral
                   (1, T, omega[j], fieldVector[j], E_m, pObject.dt0));
         facTwo = (alphaTwo[j] * pObject.firstIntegral
                   (2, T, omega[j], fieldVector[j], E_m, pObject.dt0));
         facThree = (alphaThree[j] * pObject.firstIntegral
                   (3, T, omega[j], fieldVector[j], E_m, pObject.dt0));
+        facFour = (alphaFour[j] * pObject.firstIntegral
+                    (4, T, omega[j], fieldVector[j], E_m, pObject.dt0));
+        facFive = (alphaFive[j] * pObject.firstIntegral
+                    (5, T, omega[j], fieldVector[j], E_m, pObject.dt0));
         
+        fac = facOne + facTwo + facThree + facFour + facFive;
         outputRealCf<<real(fac)<<endl;
         outputImagCf<<imag(fac)<<endl;
         outputRealCfOne<<real(facOne)<<endl;
@@ -184,7 +211,72 @@ int main(int argc, const char* argv[]) {
     }
     
 /*Tests*/
-    cout<<real(facTwo)<<"\t"<<imag(facTwo)<<endl;
+    cout<<real(facFour)<<"\t"<<imag(facFour)<<endl;
+    cout<<real(facFive)<<"\t"<<imag(facFive)<<endl;
     cout << "Go Dawgs!\n";
+
+/*Python running*/
+//    
+//    PyObject *pName, *pModule, *pDict, *pFunc;
+//    PyObject *pArgs, *pValue;
+//    int i;
+//
+//    if (argc < 3) {
+//        fprintf(stderr,"Usage: call pythonfile funcname [args]\n");
+//        return 1;
+//    }
+//
+//    Py_Initialize();
+//    pName = PyString_FromString(argv[1]);
+//    /* Error checking of pName left out */
+//
+//    pModule = PyImport_Import(pName);
+//    Py_DECREF(pName);
+//
+//    if (pModule != NULL) {
+//        pFunc = PyObject_GetAttrString(pModule, argv[2]);
+//        /* pFunc is a new reference */
+//        
+//        if (pFunc && PyCallable_Check(pFunc)) {
+//            pArgs = PyTuple_New(argc - 3);
+//            for (i = 0; i < argc - 3; ++i) {
+//                pValue = PyInt_FromLong(atoi(argv[i + 3]));
+//                if (!pValue) {
+//                    Py_DECREF(pArgs);
+//                    Py_DECREF(pModule);
+//                    fprintf(stderr, "Cannot convert argument\n");
+//                    return 1;
+//                }
+//                /* pValue reference stolen here: */
+//                PyTuple_SetItem(pArgs, i, pValue);
+//            }
+//            pValue = PyObject_CallObject(pFunc, pArgs);
+//            Py_DECREF(pArgs);
+//            if (pValue != NULL) {
+//                printf("Result of call: %ld\n", PyInt_AsLong(pValue));
+//                Py_DECREF(pValue);
+//            }
+//            else {
+//                Py_DECREF(pFunc);
+//                Py_DECREF(pModule);
+//                PyErr_Print();
+//                fprintf(stderr,"Call failed\n");
+//                return 1;
+//            }
+//        }
+//        else {
+//            if (PyErr_Occurred())
+//                PyErr_Print();
+//            fprintf(stderr, "Cannot find function \"%s\"\n", argv[2]);
+//        }
+//        Py_XDECREF(pFunc);
+//        Py_DECREF(pModule);
+//    }
+//    else {
+//        PyErr_Print();
+//        fprintf(stderr, "Failed to load \"%s\"\n", argv[1]);
+//        return 1;
+//    }
+//    Py_Finalize();
     return 0;
 }

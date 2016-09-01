@@ -23,7 +23,9 @@ pert::pert()
 ,  firstEnergy(-0.8502)
 ,  secondEnergy(-0.4905)
 ,  thirdEnergy(-0.3278)
-,  stateEnergy(4)
+,  fourthEnergy(-0.2251)
+,  fifthEnergy(-0.1665)
+,  stateEnergy(6)
 ,  dt0(0.5)
 ,  domega0(0.001)
 ,  omegaMin(0.58)
@@ -69,7 +71,6 @@ std::complex<double> pert::secondIntegral(int m, double tPrime, double &t,
 				 * time[i])) * std::complex<double>(field[i], 0.0);
 		}
 	}
-
 	return s * dt;
 }
 
@@ -138,7 +139,7 @@ std::complex<double> pert::dipole(wavefunction &wf, wavefunction &wf2)
     for (int i = 1; i <= wf.n1; i++)
     {
         mu += -conj(wf.wave[wf.in2(1, i)]) 
-        	* std::complex<double> (wf.x1[i], 0.0) * wf2.wave[wf2.in2(1, i)];
+        	* complex<double> (wf.x1[i], 0.0) * wf2.wave[wf2.in2(1, i)];
     }
     mu *= wf.dx1;
     return mu;

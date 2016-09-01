@@ -61,6 +61,7 @@ private:
     double secondEnergy;
     double thirdEnergy;
     double fourthEnergy;
+    double fifthEnergy;
 
 };
 
