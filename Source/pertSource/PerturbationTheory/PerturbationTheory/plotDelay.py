@@ -10,8 +10,8 @@ data = np.loadtxt('TDSE_3fs.txt')
 x = data[:, 0]
 y = data[:, 4]
 
-# PathTest = '/Users/cgoldsmith/repos/delayFitting/Data/pertOutput/Tests/'
-PathTest = '/Users/cgoldsmith/repos/delayFitting/Data/pertOutput/'
+PathTest = '/Users/cgoldsmith/repos/delayFitting/Data/pertOutput/MoreStateTests/'
+# PathTest = '/Users/cgoldsmith/repos/delayFitting/Data/pertOutput/'
 
 def plotDelays(Path):
     os.chdir(Path)

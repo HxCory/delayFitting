@@ -35,6 +35,8 @@ pert::pert()
     stateEnergy[1] = firstEnergy;
     stateEnergy[2] = secondEnergy;
     stateEnergy[3] = thirdEnergy;
+    stateEnergy[4] = fourthEnergy;
+    stateEnergy[5] = fifthEnergy;
 }
 
 pert::~pert()
@@ -141,7 +143,7 @@ std::complex<double> pert::dipole(wavefunction &wf, wavefunction &wf2)
         mu += -conj(wf.wave[wf.in2(1, i)]) 
         	* complex<double> (wf.x1[i], 0.0) * wf2.wave[wf2.in2(1, i)];
     }
-    mu *= wf.dx1;
+    mu *= complex<double> (wf.dx1, 0.0);
     return mu;
 }
 
