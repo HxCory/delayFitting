@@ -22,7 +22,7 @@ Parameter<string> outputFolder("outputFolder", "/Users/cgoldsmith/repos/delayFit
 Parameter<int> nState("nState", 4, "number of states");
 Parameter<int> nPoint("nPoint", 8200, "number grid points");
 Parameter<double> spatialStep("spatialStep", 0.0732, "dx");
-Parameter<double> alphaTwoTest("alphaTwoTest", 0.004086301, "test value for alphaTwo");
+Parameter<double> dipTwoTest("dipTwoTest", 0.0004086301, "test value for dip02");
 //Parameter<double> alphaTwoTest("alphaTwoTest", -0.00009408645, "test value for alphaTwo");
 
 
@@ -137,7 +137,8 @@ int main(int argc, const char* argv[]) {
 
 /*Ops*/    
     complex<double> dip01 = pObject.dipole(wf1, wfG);
-    complex<double> dip02 = pObject.dipole(wf2, wfG);
+    // complex<double> dip02 = pObject.dipole(wf2, wfG);
+    auto dip02 = complex<double> (0.0, dipTwoTest());
     complex<double> dip03 = pObject.dipole(wf3, wfG);    
     complex<double> dip04 = pObject.dipole(wf4, wfG);
     complex<double> dip05 = pObject.dipole(wf5, wfG);
@@ -159,7 +160,6 @@ int main(int argc, const char* argv[]) {
         complex<double> elmtFive = dip05 * pObject.dipolePlaneWave(wf5,
             pObject.getMomentum(omega[i]));
         alphaOne.push_back(elmtOne);
-//        alphaTwo.push_back(alphaTwoTest());
         alphaTwo.push_back(elmtTwo);
         alphaThree.push_back(elmtThree);
         alphaFour.push_back(elmtFour);

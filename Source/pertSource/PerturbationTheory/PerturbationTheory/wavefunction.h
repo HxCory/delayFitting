@@ -10,7 +10,7 @@ void touchdir(string name);  // defined in OutputStuff.cpp , used in wf.save()
 using namespace std; // to save the std:: in front of vector and cout
 
 /**
- *  The class wavefunction contain all the information related to the wavefunction.
+ *  The class wavefunction contains all the information related to the wavefunction.
  */
 
 template<class T>
